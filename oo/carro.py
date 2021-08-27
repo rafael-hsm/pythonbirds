@@ -78,42 +78,45 @@ O       L
         >>> carro.acelerar()
         >>> carro.calcular_velocidade()
         2
-        >>> carro.acelerar()
+        >>> carro.frear()
         >>> carro.calcular_velocidade()
         0
-        >>> carro.calcular_direcao
-        >>> 'Norte'
-        >>> carro.calcular_direcao
-        >>> 'Norte'
+        >>> carro.calcular_direcao()
+        'Norte'
         >>> carro.girar_a_direita()
         >>> carro.calcular_direcao()
-        >>> 'Leste'
+        'Leste'
         >>> carro.girar_a_esquerda()
         >>> carro.calcular_direcao()
-        >>> 'Norte'
+        'Norte'
         >>> carro.girar_a_esquerda()
         >>> carro.calcular_direcao()
-        >>> 'Oeste'
+        'Oeste'
+"""
 
-    """
 
+class Carro:
+    def __init__(self, direcao, motor):
+        self.motor = motor
+        self.direcao = direcao
 
-class Motor:
-    def __init__(self):
-        self.velocidade=0
+    def calcular_velocidade(self):
+        return self.motor.velocidade
 
     def acelerar(self):
-        self.velocidade += 1
+        self.motor.acelerar()
 
     def frear(self):
-        self.velocidade -= 2
-        self.velocidade = max(0, self.velocidade)
-        """
-        Utilizamos a função max() para resolvermos o problema de 
-        velocidade negativa, pois definimos o valor mínimo como 0
-        caso o valor seja negativo, senão o programa vai pegar o 
-        valor da velocidade mesmo.
-        """
+        self.motor.frear()
+
+    def calcular_direcao(self):
+        return self.direcao.valor
+
+    def girar_a_direita(self):
+        self.direcao.girar_a_direita()
+
+    def girar_a_esquerda(self):
+        self.direcao.girar_a_esquerda()
 
 
 NORTE = 'Norte'
@@ -140,3 +143,20 @@ class Direcao:
     def girar_a_esquerda(self):
         self.valor = self.rotacao_a_esquerda_dct[self.valor]
 
+
+class Motor:
+    def __init__(self):
+        self.velocidade = 0
+
+    def acelerar(self):
+        self.velocidade += 1
+
+    def frear(self):
+        self.velocidade -= 2
+        self.velocidade = max(0, self.velocidade)
+        """
+        Utilizamos a função max() para resolvermos o problema de 
+        velocidade negativa, pois definimos o valor mínimo como 0
+        caso o valor seja negativo, senão o programa vai pegar o 
+        valor da velocidade mesmo.
+        """

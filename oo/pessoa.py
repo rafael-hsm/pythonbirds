@@ -1,5 +1,6 @@
 class Pessoa:
-    olhos = 2 #atributo de classe ou atributo default
+    olhos = 2  # :Atributo de classe ou atributo default
+
     def __init__(self, *filhos, nome=None, idade=31):
         self.idade = idade
         self.nome = nome
@@ -10,6 +11,14 @@ class Pessoa:
     """
     def cumprimentar(self):
         return f'Olá {id(self)}'
+
+    @staticmethod
+    def metodo_estatico():
+        return 42
+
+    @classmethod
+    def nome_e_atributos_de_classe(cls):
+        return f'{cls} - olhos {cls.olhos}'
 
 
 if __name__ == '__main__':
@@ -32,3 +41,5 @@ if __name__ == '__main__':
     print(dexter.olhos)
     print(rafael.olhos)
     print(id(rafael.olhos), id(dexter.olhos), id(rafael.olhos))
+    print(Pessoa.metodo_estatico(), dexter.metodo_estatico())
+    print(Pessoa.nome_e_atributos_de_classe(), dexter.nome_e_atributos_de_classe())

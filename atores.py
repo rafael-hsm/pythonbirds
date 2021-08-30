@@ -59,7 +59,6 @@ class Ator:
                 self.status = outro_ator.status = DESTRUIDO
 
 
-
 class Obstaculo(Ator):
     _caracter_ativo = 'O'
 
@@ -122,8 +121,11 @@ class Passaro(Ator):
         :param tempo: tempo de jogo a ser calculada a posição
         :return: posição x, y
         """
-        return 1, 1
-
+        if self.foi_lancado():
+            delta_t = tempo - self._tempo_de_lancamento
+            self._calcular_posição_vertical(delta_t)
+            self._calcular_posição_horizontal(delta_t)
+        return super().calcular_posicao(tempo)
 
     def lancar(self, angulo, tempo_de_lancamento):
         """
@@ -137,9 +139,24 @@ class Passaro(Ator):
         self._angulo_de_lancamento = angulo
         self._tempo_de_lancamento = tempo_de_lancamento
 
+    def _calcular_posição_vertical(self, delta_t):
+        y_atual = self._y_inicial
+        angulo_radianos = math.radians(self._angulo_de_lancamento)
+        y_atual += self.velocidade_escalar * delta_t * math.sin(angulo_radianos)
+        y_atual -= (GRAVIDADE * delta_t ** 2) / 2
+        self.y = y_atual
+
+    def _calcular_posição_horizontal(self, delta_t):
+        x_atual = self._x_inicial
+        angulo_radianos = math.radians(self._angulo_de_lancamento)
+        x_atual += self.velocidade_escalar * delta_t * math.cos(angulo_radianos)
+        self.x = x_atual
+
 
 class PassaroAmarelo(Passaro):
     _caracter_ativo = 'A'
+    _caracter_destruido = 'a'
+    velocidade_escalar = 30
 
 
 class PassaroVermelho(Passaro):

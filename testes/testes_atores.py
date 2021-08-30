@@ -171,7 +171,6 @@ class PassaroBaseTests(TestCase):
     Classe base para teste de passaros.
     Essa classe não contèm nenhum teste, serve apenas para encapsular a lógica de asserção de posição de passaros
     vermelhos e também dos amarelos.
-
     """
 
     def assert_passaro_posicao(self, x_esperado, y_esperado, status_esperado, passaro, tempo):
